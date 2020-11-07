@@ -23,7 +23,7 @@ class REINFORCE(tf.keras.Model):
 
 class REINFORCEAgent:
     def __init__(self, state_size, action_size):
-        self.render = True
+        self.render = False
         self.state_size = state_size
         self.action_size = action_size
 
@@ -34,7 +34,6 @@ class REINFORCEAgent:
         self.optimizer = Adam(lr=self.learning_rate)
 
         self.states, self.actions, self.rewards = [], [], []
-        self.discounted_reward = []
 
     def get_action(self, state):
         policies = self.model(state)[0]
@@ -50,26 +49,32 @@ class REINFORCEAgent:
 
     def discounted_rewards(self):
         n = len(self.rewards)
-        self.discounted_reward = [0.0] * n
+
+        discounted_reward = np.zeros_like(self.rewards)
         before = 0
         for t in reversed(range(n)):
-            self.discounted_reward[t] = before * self.discount_factor + self.rewards[t]
-            before = self.discounted_reward[t]
+            discounted_reward[t] = before * self.discount_factor + self.rewards[t]
+            before = discounted_reward[t]
+        return discounted_reward
 
     def train_model(self):
-        agent.discounted_rewards()
+        discounted_rewards = np.float32(self.discounted_rewards())
+        discounted_rewards -= np.mean(discounted_rewards)
+        discounted_rewards /= np.std(discounted_rewards)
+
         model_params = self.model.trainable_variables
         with tf.GradientTape() as tape:
             tape.watch(model_params)
 
             policies = self.model(np.array(self.states))
             actions = np.array(self.actions)
-            cross_entropy = -tf.math.log(tf.reduce_sum(policies * actions, axis = 1) + 1e-5)
-            loss = tf.reduce_sum(cross_entropy * self.discounted_reward)
+            cross_entropy = -tf.math.log(tf.reduce_sum(actions * policies, axis = 1) + 1e-5)
+            loss = tf.reduce_sum(cross_entropy * discounted_rewards)
             self.entropy = np.mean(-policies * tf.math.log(policies))
 
         grads = tape.gradient(loss, model_params)
         self.optimizer.apply_gradients(zip(grads, model_params))
+        self.states, self.actions, self.rewards = [], [], []
     
 
 if __name__ == "__main__":
@@ -82,7 +87,7 @@ if __name__ == "__main__":
     scores, episodes = [], []
     score_avg = 0
 
-    num_episode = 300
+    num_episode = 3000
 
     for e in range(num_episode):
         done = False
@@ -108,7 +113,6 @@ if __name__ == "__main__":
 
             if done:
                 agent.train_model()
-                print(agent.entropy)
 
                 score_avg = 0.9 * score_avg + 0.1 * score if score_avg != 0 else score
                 print("episode: {:3d} | score: {:3.2f} | entropy: {:.3f}".format(
@@ -125,4 +129,7 @@ if __name__ == "__main__":
                 if score_avg > 400:
                     agent.model.save_weights("./save_model/model", save_format="tf")
                     sys.exit()
+
+
+    env.close()
             
