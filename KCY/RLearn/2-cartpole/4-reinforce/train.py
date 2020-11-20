@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
     scores, episodes = [], []
 
-    EPISODES = 201
+    EPISODES = 1000
 
     for e in range(EPISODES):
         done = False

@@ -32,12 +32,17 @@ class REINFORCEAgent:
         self.action_size = action_size
 
         self.model = REINFORCE(self.action_size)
-        self.model.load_weights('save_model/trained/model')
+        self.model.load_weights('save_model/model')
 
     # 정책신경망으로 행동 선택
+    # def get_action(self, state):
+    #     policy = self.model(state)[0]
+    #     return np.argmax(policy)
+    
     def get_action(self, state):
         policy = self.model(state)[0]
-        return np.argmax(policy)
+        policy = np.array(policy)
+        return np.random.choice(self.action_size, 1, p=policy)[0]
 
 
 if __name__ == "__main__":
