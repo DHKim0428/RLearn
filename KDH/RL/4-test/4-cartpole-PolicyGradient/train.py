@@ -95,12 +95,12 @@ if __name__ == "__main__":
 
         state = env.reset()
         state = np.reshape(state, [1, state_size])
-        action = agent.get_action(state)
 
         while not done:
             if agent.render:
                 env.render()
 
+            action = agent.get_action(state)
             next_state, reward, done, info = env.step(action)
             next_state = np.reshape(next_state, [1, state_size])
         
