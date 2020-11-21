@@ -135,5 +135,5 @@ if __name__ == "__main__":
 
                 # 이동 평균이 400 이상일 때 종료
                 if score_avg > 400:
-                    agent.model.save_weights("./save_model/model", save_format="tf")
+                    agent.model.save_weights("save_model/model", save_format="tf")
                     sys.exit()

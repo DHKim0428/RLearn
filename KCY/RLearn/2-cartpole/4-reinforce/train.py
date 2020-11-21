@@ -125,6 +125,6 @@ if __name__ == "__main__":
                 pylab.xlabel("episode")
                 pylab.ylabel("score")
                 pylab.savefig("./save_graph/graph.png")
-    
-    if e % 100 == 0:
-        agent.model.save_weights('save_model/model', save_format='tf')
+        if e % 100 == 0:        
+            agent.model.save_weights('save_model/model', save_format='tf')
+

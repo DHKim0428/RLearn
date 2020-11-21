@@ -11,6 +11,7 @@ WIDTH = 5  # 그리드 가로
 np.random.seed(1)
 
 
+
 class Env(tk.Tk):
     def __init__(self, render_speed=0.01):
         super(Env, self).__init__()
@@ -28,7 +29,7 @@ class Env(tk.Tk):
         self.set_reward([0, 1], -1)
         self.set_reward([1, 2], -1)
         self.set_reward([2, 3], -1)
-        # 목표 지점 설정
+        # 목표 지점 설정self,
         self.set_reward([4, 4], 1)
 
     def _build_canvas(self):
