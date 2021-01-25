@@ -56,8 +56,8 @@ class Board:
         self.num_turn += 1
         if self.canvas != None:
             self.canvas.addMark(i, j, player, self.num_turn)
-        if self.winner() == player:
-            self.canvas.setGameOver(player)
+            if self.winner() == player:
+                self.canvas.setGameOver(player)
 
     def copy(self):
         b = Board()
