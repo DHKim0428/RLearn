@@ -55,3 +55,61 @@ class Minimax:
                 minValue = value
                 bestMove = move
         return (minValue, bestMove)
+
+
+class AlphaBeta:
+    def __init__(self, board, depth, player, graphics=None):
+        self.INTMAX = 10000000
+        self.INTMIN = -self.INTMAX
+        self.board = board
+        self.depthTh = depth
+        self.player = player
+        self.graphics = graphics
+
+    def run(self):
+        alpha, beta = self.INTMIN, self.INTMAX
+        return self.__maxValue(self.board, alpha, beta, 0)
+
+    def __maxValue(self, board, alpha, beta, depth):
+        M = board.validMoves(self.player)
+        if len(M) == 0 or depth >= self.depthTh:
+            return (board.value(self.player), None)
+
+        if board.value(self.player) == 10:
+            return (10-depth, None)
+        
+        if board.value(self.player) == -10:
+            return (-10+depth, None)
+
+        bestMove = None
+        for move in M:
+            b = board.boardAfterMove(self.player, move)
+            value, _ = self.__minValue(b, alpha, beta, depth+1)
+            if value > alpha:
+                alpha = value
+                bestMove = move
+            if beta <= alpha:
+                break
+        return alpha, bestMove
+
+    def __minValue(self, board, alpha, beta, depth):
+        M = board.validMoves(opponent(self.player))
+        if len(M) == 0 or depth >= self.depthTh:
+            return (board.value(self.player), None)
+        
+        if board.value(self.player) == 10:
+            return (10-depth, None)
+        
+        if board.value(self.player) == -10:
+            return (-10+depth, None)
+        
+        bestMove = None
+        for move in M:
+            b = board.boardAfterMove(opponent(self.player), move)
+            value, _ = self.__maxValue(b, alpha, beta, depth+1)
+            if value < beta:
+                beta = value
+                bestMove = move
+            if beta <= alpha:
+                break
+        return beta, bestMove

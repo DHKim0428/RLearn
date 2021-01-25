@@ -1,5 +1,5 @@
 from board import *
-from minimax import Minimax
+from minimax import Minimax, AlphaBeta
 
 # humanPlayer, computerPlayer = X, O
 humanPlayer, computerPlayer = O, X
@@ -34,7 +34,8 @@ def playHuman():
 
         if player == computerPlayer:
             print("Computer player searches..")
-            treeSearch = Minimax(board, 5, player, canvas)
+            # treeSearch = Minimax(board, 5, player, canvas)
+            treeSearch = AlphaBeta(board, 9, player, canvas)
             (v, move) = treeSearch.run()
             print("Computer player selects", move[0]+1, move[1]+1, v)
         else:
