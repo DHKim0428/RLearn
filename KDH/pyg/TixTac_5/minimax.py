@@ -17,11 +17,11 @@ class Minimax:
         if len(M) == 0 or depth >= self.depthTH:
             return (board.value(self.player), None)
 
-        if board.value(self.player) == 25:
-            return (25-depth, None)
+        if board.value(self.player) == 10:
+            return (10-depth, None)
         
-        if board.value(self.player) == -25:
-            return (-25+depth, None)
+        if board.value(self.player) == -10:
+            return (-10+depth, None)
         
         maxValue = self.INTMIN
         bestMove = None
@@ -40,11 +40,11 @@ class Minimax:
         if len(M) == 0 or depth >= self.depthTH:
             return (board.value(self.player), None)
         
-        if board.value(self.player) == 25:
-            return (25-depth, None)
+        if board.value(self.player) == 10:
+            return (10-depth, None)
         
-        if board.value(self.player) == -25:
-            return (-25+depth, None)
+        if board.value(self.player) == -10:
+            return (-10+depth, None)
         
         minValue = self.INTMAX
         bestMove = None
@@ -75,11 +75,11 @@ class AlphaBeta:
         if len(M) == 0 or depth >= self.depthTh:
             return (board.value(self.player), None)
 
-        if board.value(self.player) == 25:
-            return (25-depth, None)
+        if board.value(self.player) == 10:
+            return (10-depth, None)
         
-        if board.value(self.player) == -25:
-            return (-25+depth, None)
+        if board.value(self.player) == -10:
+            return (-10+depth, None)
 
         bestMove = None
         for move in M:
@@ -97,11 +97,11 @@ class AlphaBeta:
         if len(M) == 0 or depth >= self.depthTh:
             return (board.value(self.player), None)
         
-        if board.value(self.player) == 25:
-            return (25-depth, None)
+        if board.value(self.player) == 10:
+            return (10-depth, None)
         
-        if board.value(self.player) == -25:
-            return (-25+depth, None)
+        if board.value(self.player) == -10:
+            return (-10+depth, None)
         
         bestMove = None
         for move in M:

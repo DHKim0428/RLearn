@@ -75,8 +75,8 @@ class Board:
     def value(self, player):
         result = self.winner()
         if result == DRAW: return 0
-        if result == player: return 25
-        return -25
+        if result == player: return 10
+        return -10
 
     def noValidMoves(self, player):
         return len(self.validMoves(player)) == 0

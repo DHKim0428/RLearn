@@ -9,7 +9,7 @@ class Canvas:
         self.RED = (255, 0, 0)
         self.YELLOW = (255, 255, 0)
         self.large_font = pygame.font.SysFont('Noto Sans CJK HK', 72)
-        self.CELL_SIZE = 120
+        self.CELL_SIZE = 200
         self.screen = screen
         self.SCREEN_WIDTH = width
         self.SCREEN_HEIGHT = height

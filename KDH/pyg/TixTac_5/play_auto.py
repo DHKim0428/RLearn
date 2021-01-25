@@ -1,11 +1,8 @@
 from board import *
 from minimax import Minimax, AlphaBeta
 
-# humanPlayer, computerPlayer = X, O
-humanPlayer, computerPlayer = O, X
-
 ####################################
-def playHuman():
+def playAuto():
     pygame.init()
     logo = pygame.image.load("logo32x32.png")
     pygame.display.set_icon(logo)
@@ -32,20 +29,13 @@ def playHuman():
         if game_over != 0:
             continue
 
-        if player == computerPlayer:
-            print("Computer player searches..")
-            # treeSearch = Minimax(board, 5, player, canvas)
-            treeSearch = AlphaBeta(board, 6, player, canvas)
-            (v, move) = treeSearch.run()
-            print("Computer player selects", move[0]+1, move[1]+1, v)
-        else:
-            if move[0] < 0:
-                continue
-
-            if not board.isValidMove(player, move):
-                print("Invalid move..")
-                continue
         
+        # print("Computer player searches..")
+        # treeSearch = Minimax(board, 5, player, canvas)
+        treeSearch = AlphaBeta(board, 9, player, canvas)
+        (v, move) = treeSearch.run()
+        # print("Computer player selects", move[0]+1, move[1]+1, v)
+
         board.setMove(player, move)
         print(canvas.grid)
         nStep += 1
@@ -55,6 +45,6 @@ def playHuman():
         player = opponent(player)
 
         canvas.draw()
-        clock.tick(60)
+        clock.tick(1)
 
-playHuman()    
+playAuto()    
