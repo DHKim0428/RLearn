@@ -102,11 +102,11 @@ while True:
             if mark == 'X':
                 X_image = large_font.render('X', True, YELLOW)
                 screen.blit(X_image, X_image.get_rect(centerx=column_index * CELL_SIZE + CELL_SIZE // 2, 
-                                                                                                centery=row_index * CELL_SIZE + CELL_SIZE // 2))
+                                                        centery=row_index * CELL_SIZE + CELL_SIZE // 2))
             elif mark == 'O':
                 O_image = large_font.render('O', True, WHITE)
                 screen.blit(O_image, O_image.get_rect(centerx=column_index * CELL_SIZE + CELL_SIZE // 2, 
-                                                                                                centery=row_index * CELL_SIZE + CELL_SIZE // 2))
+                                                        centery=row_index * CELL_SIZE + CELL_SIZE // 2))
     
     if game_over == X_WIN:
         x_win_image = large_font.render('X 승리', True, RED)
